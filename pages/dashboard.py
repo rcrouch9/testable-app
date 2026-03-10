@@ -22,7 +22,7 @@ class DashboardPage:
     def wait_for_data_to_load(self):
         # Wait for the spinner to appear, then disappear
         wait = WebDriverWait(self.driver, 10)
-        wait.until(EC.invisibility_of_element_locator(self.LOADING_SPINNER))
+        wait.until(EC.invisibility_of_element_located(self.LOADING_SPINNER))
 
     def get_row_count(self):
         return len(self.driver.find_elements(*self.DATA_ROWS))
