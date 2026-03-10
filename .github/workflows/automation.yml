@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Set up Node.js
-      uses: actions/node-setup@v4
+      uses: actions/setup-node@v4
       with:
         node-version: '20'
 
@@ -27,7 +27,6 @@ jobs:
 
     - name: Start Next.js App in Background
       run: npm run start &
-      # This runs the app on http://localhost:3000
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -38,7 +37,9 @@ jobs:
       run: |
         pip install -r requirements.txt
 
+    - name: Wait for Next.js to be ready
+      run: npx wait-on http://localhost:3000 --timeout 10000
+
     - name: Run Selenium Tests (Headless)
       run: |
-        # We use pytest to execute the scripts we wrote earlier
         pytest tests/test_dashboard.py --verbose
