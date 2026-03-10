@@ -19,10 +19,23 @@ class DashboardPage:
     def filter_by_critical(self):
         self.driver.find_element(*self.FILTER_CRITICAL).click()
 
-    def wait_for_data_to_load(self):
-        # Wait for the spinner to appear, then disappear
+    def wait_for_data_to_load(self, current_count=None):
         wait = WebDriverWait(self.driver, 10)
+        
+        # 1. Wait for the spinner to exist (starts the loading phase)
+        # We use a short timeout here because if the app is fast, 
+        # the spinner might flash and vanish instantly.
+        try:
+            wait.until(EC.presence_of_element_located(self.LOADING_SPINNER))
+        except:
+            pass 
+
+        # 2. Wait for the spinner to be gone
         wait.until(EC.invisibility_of_element_located(self.LOADING_SPINNER))
+
+        # 3. If we know what the count WAS, wait until it is different
+        if current_count is not None:
+            wait.until(lambda d: len(d.find_elements(*self.DATA_ROWS)) != current_count)
 
     def get_row_count(self):
         return len(self.driver.find_elements(*self.DATA_ROWS))
