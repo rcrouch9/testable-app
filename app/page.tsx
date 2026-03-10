@@ -10,8 +10,10 @@ const MOCK_DATA = [
   { id: 3, location: "North Atlantic", fdi: 12.4, status: "Low Risk" },
 ];
 
+type Item = { id: number; location: string; fdi: number; status: string };
+
 export default function Dashboard() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState("All");
 
