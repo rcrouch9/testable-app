@@ -42,5 +42,4 @@ jobs:
 
     - name: Run Selenium Tests (Headless)
       run: |
-        export PYTHONPATH=$PYTHONPATH:$(pwd)
-        pytest tests/test_dashboard.py --verbose
+        python -m pytest tests/test_dashboard.py --verbose
