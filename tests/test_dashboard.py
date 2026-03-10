@@ -2,7 +2,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-from pages.dashboard_page import DashboardPage
+from pages.dashboard import DashboardPage
 
 @pytest.fixture
 def driver():
